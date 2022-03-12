@@ -1,15 +1,33 @@
 import React from "react";
+import { removeQuote, upvoteQuote, downvoteQuote } from "./quotesSlice";
+import { useDispatch } from "react-redux";
 
-function QuoteCard(props) {
+function QuoteCard({ quote }) {
+  function QuoteCard({ quote }) {
+    const { content, author, votes, id } = quote
+    const dispatch = useDispatch()
+  
+    const handleUpvoteClick = () => {
+      dispatch(upvoteQuote(id))
+    }
+  
+    const handleDownvoteClick = () => {
+      dispatch(downvoteQuote(id))
+    }
+  
+    const handleRemoveClick = () => {
+      dispatch(removeQuote(id))
+    }
+  
   return (
     <div>
       <div className="card card-inverse card-success card-primary mb-3 text-center">
         <div className="card-block">
           <blockquote className="card-blockquote">
-            <p>{/*Render Quote Content*/}</p>
+            <p>{content}</p>
             <footer>
               - author{" "}
-              <cite title="Source Title">{/*Render Quote Author*/}</cite>
+              <cite title="Source Title">{author}</cite>
             </footer>
           </blockquote>
         </div>
@@ -29,7 +47,7 @@ function QuoteCard(props) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div>Votes: {/*Render Quote Votes*/}</div>
+          <div>Votes: {votes}</div>
         </div>
       </div>
     </div>
